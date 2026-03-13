@@ -12,6 +12,7 @@ extension Date {
         // DateFormatter for parsing the UTC date string
         let inputFormatter = DateFormatter()
         inputFormatter.dateFormat = format
+        inputFormatter.locale = Locale(identifier: "en_US_POSIX")
         inputFormatter.timeZone = TimeZone(secondsFromGMT: 0) // UTC
 
         // DateFormatter for converting to local time string

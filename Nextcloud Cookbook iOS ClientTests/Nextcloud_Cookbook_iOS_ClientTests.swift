@@ -6,6 +6,7 @@
 //
 
 import XCTest
+@testable import Nextcloud_Cookbook_iOS_Client
 
 final class Nextcloud_Cookbook_iOS_ClientTests: XCTestCase {
 
@@ -23,6 +24,14 @@ final class Nextcloud_Cookbook_iOS_ClientTests: XCTestCase {
         // Any test you write for XCTest can be annotated as throws and async.
         // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
         // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    }
+
+
+    func testConvertUTCStringToLocalStringParsesPosixDate() throws {
+        let utc = "2026-03-13 05:30:00"
+        let result = Date.convertUTCStringToLocalString(utcDateString: utc)
+
+        XCTAssertNotNil(result)
     }
 
     func testPerformanceExample() throws {
