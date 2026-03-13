@@ -6,6 +6,7 @@
 //
 
 import XCTest
+@testable import Nextcloud_Cookbook_iOS_Client
 
 final class Nextcloud_Cookbook_iOS_ClientTests: XCTestCase {
 
@@ -17,12 +18,22 @@ final class Nextcloud_Cookbook_iOS_ClientTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    func testConvertISOStringToLocalStringSupportsFractionalSeconds() throws {
+        let converted = Date.convertISOStringToLocalString(isoDateString: "2026-03-13T13:30:45.123Z")
+        XCTAssertNotNil(converted)
+    }
+
+    func testConvertUTCStringToLocalStringParsesExpectedFormat() throws {
+        let converted = Date.convertUTCStringToLocalString(utcDateString: "2026-03-13 13:30:45")
+        XCTAssertNotNil(converted)
+    }
+
+
+    func testConvertUTCStringToLocalStringParsesPosixDate() throws {
+        let utc = "2026-03-13 05:30:00"
+        let result = Date.convertUTCStringToLocalString(utcDateString: utc)
+
+        XCTAssertNotNil(result)
     }
 
     func testPerformanceExample() throws {
