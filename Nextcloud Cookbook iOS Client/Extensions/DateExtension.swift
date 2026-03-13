@@ -11,11 +11,13 @@ extension Date {
     static func convertUTCStringToLocalString(utcDateString: String, withFormat format: String = "yyyy-MM-dd HH:mm:ss") -> String? {
         // DateFormatter for parsing the UTC date string
         let inputFormatter = DateFormatter()
+        inputFormatter.locale = Locale(identifier: "en_US_POSIX")
         inputFormatter.dateFormat = format
         inputFormatter.timeZone = TimeZone(secondsFromGMT: 0) // UTC
 
         // DateFormatter for converting to local time string
         let outputFormatter = DateFormatter()
+        outputFormatter.locale = Locale(identifier: "en_US_POSIX")
         outputFormatter.dateFormat = format // You can modify this format for different output styles
         outputFormatter.timeZone = TimeZone.current // Device's local time zone
 
@@ -31,6 +33,7 @@ extension Date {
         let inputFormatter = ISO8601DateFormatter()
         // DateFormatter for converting to local time string
         let outputFormatter = DateFormatter()
+        outputFormatter.locale = Locale(identifier: "en_US_POSIX")
         outputFormatter.dateFormat = format // You can modify this format for different output styles
         outputFormatter.timeZone = TimeZone.current // Device's local time zone
 
