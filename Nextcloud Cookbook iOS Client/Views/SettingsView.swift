@@ -13,7 +13,7 @@ import SwiftUI
 struct SettingsView: View {
     @EnvironmentObject var appState: AppState
     @ObservedObject var userSettings = UserSettings.shared
-    @ObservedObject var viewModel = ViewModel()
+    @StateObject private var viewModel = ViewModel()
     
     var body: some View {
         Form {
