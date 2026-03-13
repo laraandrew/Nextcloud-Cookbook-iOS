@@ -13,11 +13,13 @@ extension Date {
         let inputFormatter = DateFormatter()
         inputFormatter.dateFormat = format
         inputFormatter.timeZone = TimeZone(secondsFromGMT: 0) // UTC
+        inputFormatter.locale = Locale(identifier: "en_US_POSIX")
 
         // DateFormatter for converting to local time string
         let outputFormatter = DateFormatter()
         outputFormatter.dateFormat = format // You can modify this format for different output styles
         outputFormatter.timeZone = TimeZone.current // Device's local time zone
+        outputFormatter.locale = Locale(identifier: "en_US_POSIX")
 
         // Convert the string to Date and then to local time string
         if let date = inputFormatter.date(from: utcDateString) {
@@ -29,16 +31,25 @@ extension Date {
     
     static func convertISOStringToLocalString(isoDateString: String, withFormat format: String = "yyyy-MM-dd HH:mm:ss") -> String? {
         let inputFormatter = ISO8601DateFormatter()
+        inputFormatter.formatOptions = [.withInternetDateTime]
+
         // DateFormatter for converting to local time string
         let outputFormatter = DateFormatter()
         outputFormatter.dateFormat = format // You can modify this format for different output styles
         outputFormatter.timeZone = TimeZone.current // Device's local time zone
+        outputFormatter.locale = Locale(identifier: "en_US_POSIX")
 
         // Convert the string to Date and then to local time string
         if let date = inputFormatter.date(from: isoDateString) {
             return outputFormatter.string(from: date)
-        } else {
-            return nil // Return nil if the input string is not in the correct format
         }
+
+        // Fallback for API responses that include fractional seconds.
+        inputFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        if let date = inputFormatter.date(from: isoDateString) {
+            return outputFormatter.string(from: date)
+        }
+
+        return nil // Return nil if the input string is not in a recognized ISO format
     }
 }
