@@ -53,25 +53,27 @@ class DurationComponents: ObservableObject {
     
     static func fromPTString(_ PTRepresentation: String) -> DurationComponents {
         let duration = DurationComponents()
-        let hourRegex = /([0-9]{1,2})H/
-        let minuteRegex = /([0-9]{1,2})M/
-        if let match = PTRepresentation.firstMatch(of: hourRegex) {
-            duration.hourComponent = Int(match.1) ?? 0
-        }
-        if let match = PTRepresentation.firstMatch(of: minuteRegex) {
-            duration.minuteComponent = Int(match.1) ?? 0
-        }
+        duration.fromPTString(PTRepresentation)
         return duration
     }
     
     func fromPTString(_ PTRepresentation: String) {
         let hourRegex = /([0-9]{1,2})H/
         let minuteRegex = /([0-9]{1,2})M/
+        let secondRegex = /([0-9]{1,2})S/
+
+        self.hourComponent = 0
+        self.minuteComponent = 0
+        self.secondComponent = 0
+
         if let match = PTRepresentation.firstMatch(of: hourRegex) {
             self.hourComponent = Int(match.1) ?? 0
         }
         if let match = PTRepresentation.firstMatch(of: minuteRegex) {
             self.minuteComponent = Int(match.1) ?? 0
+        }
+        if let match = PTRepresentation.firstMatch(of: secondRegex) {
+            self.secondComponent = Int(match.1) ?? 0
         }
     }
     

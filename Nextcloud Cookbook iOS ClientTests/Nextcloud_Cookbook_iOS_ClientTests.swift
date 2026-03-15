@@ -36,6 +36,33 @@ final class Nextcloud_Cookbook_iOS_ClientTests: XCTestCase {
         XCTAssertNotNil(result)
     }
 
+    func testDurationFromPTStringParsesSeconds() throws {
+        let duration = DurationComponents.fromPTString("PT01H02M03S")
+
+        XCTAssertEqual(duration.hourComponent, 1)
+        XCTAssertEqual(duration.minuteComponent, 2)
+        XCTAssertEqual(duration.secondComponent, 3)
+    }
+
+    func testDurationFromPTStringResetsMissingComponents() throws {
+        let duration = DurationComponents()
+        duration.hourComponent = 1
+        duration.minuteComponent = 2
+        duration.secondComponent = 3
+
+        duration.fromPTString("PT45S")
+
+        XCTAssertEqual(duration.hourComponent, 0)
+        XCTAssertEqual(duration.minuteComponent, 0)
+        XCTAssertEqual(duration.secondComponent, 45)
+    }
+
+    func testDurationToPTStringPreservesRoundTripWithSeconds() throws {
+        let duration = DurationComponents.fromPTString("PT00H05M09S")
+
+        XCTAssertEqual(duration.toPTString(), "PT00H05M09S")
+    }
+
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
         measure {
