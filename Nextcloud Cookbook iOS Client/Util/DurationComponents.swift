@@ -53,25 +53,22 @@ class DurationComponents: ObservableObject {
     
     static func fromPTString(_ PTRepresentation: String) -> DurationComponents {
         let duration = DurationComponents()
-        let hourRegex = /([0-9]{1,2})H/
-        let minuteRegex = /([0-9]{1,2})M/
-        if let match = PTRepresentation.firstMatch(of: hourRegex) {
-            duration.hourComponent = Int(match.1) ?? 0
-        }
-        if let match = PTRepresentation.firstMatch(of: minuteRegex) {
-            duration.minuteComponent = Int(match.1) ?? 0
-        }
+        duration.fromPTString(PTRepresentation)
         return duration
     }
     
     func fromPTString(_ PTRepresentation: String) {
         let hourRegex = /([0-9]{1,2})H/
         let minuteRegex = /([0-9]{1,2})M/
+        let secondRegex = /([0-9]{1,2})S/
         if let match = PTRepresentation.firstMatch(of: hourRegex) {
             self.hourComponent = Int(match.1) ?? 0
         }
         if let match = PTRepresentation.firstMatch(of: minuteRegex) {
             self.minuteComponent = Int(match.1) ?? 0
+        }
+        if let match = PTRepresentation.firstMatch(of: secondRegex) {
+            self.secondComponent = Int(match.1) ?? 0
         }
     }
     
@@ -112,26 +109,16 @@ class DurationComponents: ObservableObject {
     }
     
     static func ptToText(_ ptString: String) -> String? {
-        let hourRegex = /([0-9]{1,2})H/
-        let minuteRegex = /([0-9]{1,2})M/
-        
-        var intHour = 0
-        var intMinute = 0
-        if let match = ptString.firstMatch(of: hourRegex) {
-            let hourComponent = String(match.1)
-            intHour = Int(hourComponent) ?? 0
-        }
-        if let match = ptString.firstMatch(of: minuteRegex) {
-            let minuteComponent = String(match.1)
-            intMinute = Int(minuteComponent) ?? 0
-        }
-        
-        if intHour != 0 && intMinute != 0 {
-            return "\(intHour) h, \(intMinute) min"
-        } else if intHour == 0 && intMinute != 0 {
-            return "\(intMinute) min"
-        } else if intHour != 0 && intMinute == 0 {
-            return "\(intHour) h"
+        let duration = DurationComponents.fromPTString(ptString)
+
+        if duration.hourComponent != 0 && duration.minuteComponent != 0 {
+            return "\(duration.hourComponent) h, \(duration.minuteComponent) min"
+        } else if duration.hourComponent == 0 && duration.minuteComponent != 0 {
+            return duration.secondComponent == 0 ? "\(duration.minuteComponent) min" : "\(duration.minuteComponent) min, \(duration.secondComponent) sec"
+        } else if duration.hourComponent != 0 && duration.minuteComponent == 0 {
+            return duration.secondComponent == 0 ? "\(duration.hourComponent) h" : "\(duration.hourComponent) h, \(duration.secondComponent) sec"
+        } else if duration.secondComponent != 0 {
+            return "\(duration.secondComponent) sec"
         } else {
             return nil
         }
