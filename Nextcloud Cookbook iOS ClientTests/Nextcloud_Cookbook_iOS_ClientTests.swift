@@ -36,6 +36,17 @@ final class Nextcloud_Cookbook_iOS_ClientTests: XCTestCase {
         XCTAssertNotNil(result)
     }
 
+    func testUTCFormatterUsesPosixLocale() throws {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+
+        let parsed = formatter.date(from: "2026-03-13 05:30:00")
+        XCTAssertNotNil(parsed)
+        XCTAssertEqual(DateFormatter.utcToString(date: parsed!), "2026-03-13 05:30:00")
+    }
+
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
         measure {
