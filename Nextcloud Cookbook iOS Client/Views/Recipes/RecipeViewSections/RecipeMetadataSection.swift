@@ -131,11 +131,13 @@ struct MoreInformationSection: View {
     var body: some View {
         CollapsibleView(titleColor: .secondary, isCollapsed: !UserSettings.shared.expandInfoSection) {
             VStack(alignment: .leading) {
-                if let dateCreated = viewModel.recipeDetail.dateCreated {
-                    Text("Created: \(Date.convertISOStringToLocalString(isoDateString: dateCreated) ?? "")")
+                if let dateCreated = viewModel.recipeDetail.dateCreated,
+                   let localCreated = Date.convertISOStringToLocalString(isoDateString: dateCreated) {
+                    Text("Created: \(localCreated)")
                 }
-                if let dateModified = viewModel.recipeDetail.dateModified {
-                    Text("Last modified: \(Date.convertISOStringToLocalString(isoDateString: dateModified) ?? "")")
+                if let dateModified = viewModel.recipeDetail.dateModified,
+                   let localModified = Date.convertISOStringToLocalString(isoDateString: dateModified) {
+                    Text("Last modified: \(localModified)")
                 }
                 if viewModel.observableRecipeDetail.url != "", let url = URL(string: viewModel.observableRecipeDetail.url) {
                     HStack(alignment: .top) {
