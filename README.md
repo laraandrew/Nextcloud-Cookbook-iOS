@@ -36,7 +36,7 @@ You can download the app from the AppStore:
 
 - [ ] **Version 1.11**: Decoupling of internal recipe representation from the Nextcloud Cookbook recipe representation. This change provides increased flexibility for API updates and enables the introduction of features not currently supported by the Cookbook API, such as uploading images. This update will take some time, but will therefore result in simpler, better maintainable code. Update: I will continue to work on this update in January 2024.
 
-- [ ] **Version 1.12 and beyond** (Ideas for the future; integration not guaranteed!):
+- [ ] **Version 1.12 and beyond** (ideas for the future; integration not guaranteed):
 
   - Allow adding custom items to the grocery list.
   
@@ -54,7 +54,7 @@ You can download the app from the AppStore:
 
 ## Screenshots
 
-The following screenshots might not be up to date, since there can always be minor user interface changes.
+The following screenshots may lag slightly behind the latest UI, since there can always be minor interface changes between releases.
 
 #### iOS Screenshots
 
@@ -66,7 +66,7 @@ The following screenshots might not be up to date, since there can always be min
 
 ## Supported Languages
 
-If you wish to see additional languages supported, please don't hesitate to open an Issue. Any help with translation is appreciated.
+If you would like to see additional languages supported, please open an issue. Translation help is always appreciated.
 
 - [x] English
 - [x] German
@@ -75,4 +75,4 @@ If you wish to see additional languages supported, please don't hesitate to open
 
 ## Further information
 
-Cookbook Client is available on the App Store for free, and will be updated regularly. This app is a hobby project, which is why development progress may be slower than desired. If you are interested in an iOS native CookBook client, you are welcome to contribute! In case you discover any bugs or encounter problems, feel free to point them out by creating an Issue.
+Cookbook Client is available on the App Store for free and is updated when time permits. This is a hobby project, so progress can be slower than users might prefer. If you are interested in a native iOS Cookbook client, contributions are welcome. If you run into bugs or rough edges, please open an issue.
